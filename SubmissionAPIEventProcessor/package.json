@@ -1,0 +1,15 @@
+{
+    "name": "submission-api-event-processor",
+    "version": "1.0.0",
+    "description": "Submission API event processor",
+    "main": "index.js",
+    "license": "ISC",
+    "scripts": {},
+    "author": "Author",
+    "dependencies": {
+        "no-kafka": "^3.2.10"
+    },
+    "devDependencies": {
+        "standard": "^11.0.1"
+    }
+}

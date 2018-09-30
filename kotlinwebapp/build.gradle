@@ -1,0 +1,35 @@
+group 'com.personal.demo'
+version '1.0-SNAPSHOT'
+
+subprojects { p ->
+    p.buildscript {
+        ext.kotlin_version = '1.2.61'
+        ext.ktor_version = '0.9.4'
+
+        repositories {
+            mavenLocal()
+            jcenter()
+            maven { url "http://dl.bintray.com/kotlin/kotlin-eap" }
+        }
+
+        dependencies {
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+            classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.30"
+        }
+    }
+}
+
+subprojects {
+    ext.kotlin_version = '1.2.61'
+    ext.ktor_version = '0.9.4'
+    ext.html_version = "0.6.6"
+    ext.squash_version = "0.2.2"
+
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven { url "http://dl.bintray.com/kotlin/kotlinx" }
+        maven { url "http://dl.bintray.com/kotlin/ktor" }
+        maven { url "https://dl.bintray.com/kotlin/squash" }
+    }
+}

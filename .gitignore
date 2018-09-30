@@ -2,5 +2,4 @@
 */.DS_Store
 */.idea/libraries/*.*
 */target
-MyAppMonitor/dist
-MyAppMonitor/node_modules
+SubmissionAPIEventProcessor/node_modules
