@@ -6,10 +6,12 @@
         <productionOutputPath>$MODULE_DIR$/../../../kotlinfrontend/build/js/kotlinfrontend.js</productionOutputPath>
         <compilerSettings />
         <compilerArguments>
-          <option name="outputFile" value="$MODULE_DIR$/../../../kotlinfrontend/build/classes/kotlin/test/kotlinfrontend_test.js" />
+          <option name="outputFile" value="$MODULE_DIR$/../../../kotlinfrontend/build/js-tests/kotlinfrontend-tests.js" />
           <option name="noStdlib" value="true" />
+          <option name="sourceMap" value="true" />
           <option name="metaInfo" value="true" />
           <option name="target" value="v5" />
+          <option name="moduleKind" value="commonjs" />
           <option name="main" value="call" />
           <option name="languageVersion" value="1.2" />
           <option name="apiVersion" value="1.2" />
@@ -27,19 +29,21 @@
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output-test url="file://$MODULE_DIR$/../../../kotlinfrontend/out/test/classes" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../kotlinfrontend/src/test" />
-    <content url="file://$MODULE_DIR$/../../../kotlinfrontend/test" />
-    <content url="file://$MODULE_DIR$/../../../kotlinfrontend/testResources" />
+    <content url="file://$MODULE_DIR$/../../../kotlinfrontend/src/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../../kotlinfrontend/src/test/java" type="kotlin-test" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../kotlinfrontend/src/test/kotlin" type="kotlin-test" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../kotlinfrontend/src/test/resources" type="kotlin-test-resource" />
+    </content>
     <orderEntry type="jdk" jdkName="Kotlin SDK" jdkType="KotlinSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="kotlinfrontend_main" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-test-js:1.2.61" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-test-js:1.2.71" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-html-js:0.6.6" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.2.61" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-test-common:1.2.61" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-test-annotations-common:1.2.61" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.2.71" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-test-common:1.2.71" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-test-annotations-common:1.2.71" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-html-common:0.6.6" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.2.61" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.2.71" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="kotlinfrontend_main" />
 </module>

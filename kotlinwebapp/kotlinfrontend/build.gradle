@@ -17,11 +17,21 @@ compileKotlin2Js {
     kotlinOptions.sourceMap = true
     kotlinOptions.moduleKind = 'commonjs'
     kotlinOptions.main = "call"
+    kotlinOptions.verbose = true
+}
+
+compileTestKotlin2Js {
+    kotlinOptions.metaInfo = true
+    kotlinOptions.outputFile = "$project.buildDir.path/js-tests/${project.name}-tests.js"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.moduleKind = 'commonjs'
+//    kotlinOptions.moduleName = project.name + "-test"
+    kotlinOptions.main = "call"
 }
 
 kotlinFrontend {
 // uncomment this to specify exact nodejs version (bundle will be downloaded)
-//    downloadNodeJsVersion = "8.7.0"
+    downloadNodeJsVersion = "latest"
 
     sourceMaps = false
 
@@ -30,6 +40,7 @@ kotlinFrontend {
         replaceVersion("kotlinx-html-shared", "1.1.0")
         replaceVersion("kotlin-js-library", "1.1.0")
 
+        dependency("style-loader")
         dependency("react")
         dependency("react-dom")
         dependency("react-router")
@@ -44,21 +55,26 @@ kotlinFrontend {
     }
 
     webpackBundle {
+        bundleName = "main"
         publicPath = "/frontend/"
+        contentPath = file('src/main/web')
         port = 8080
         proxyUrl = "http://localhost:9090"
+        mode = "production"
     }
 }
 
 sourceSets {
     main {
-        kotlin.srcDirs += "src"
-        resources.srcDirs += "resources"
+        kotlin.srcDirs = [ 'src/main/kotlin' ]
+        java.srcDirs = [ 'src/main/java' ]
+        resources.srcDirs += "src/main/resources"
         output.resourcesDir = "build/js/resources"
     }
     test {
-        kotlin.srcDirs += "test"
-        resources.srcDirs += "testResources"
+        kotlin.srcDirs = [ 'src/test/kotlin' ]
+        java.srcDirs = [ 'src/test/java' ]
+        resources.srcDirs += "src/test/resources"
     }
 }
 
