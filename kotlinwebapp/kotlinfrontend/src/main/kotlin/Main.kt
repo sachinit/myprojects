@@ -1,3 +1,7 @@
+//Main.kt
+
+package com.personal.demo
+
 import org.w3c.dom.Element
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLTextAreaElement
@@ -25,8 +29,8 @@ fun main(args: Array<String>) {
     }
 }
 
-fun fetch(count: String): Unit {
-    val url = "http://localhost:8080/api/ping/$count"
+fun fetch(key: String): Unit {
+    val url = "http://localhost:8080/v1/item/$key"
     val req = XMLHttpRequest()
     req.onloadend = fun(event: Event){
         val text = req.responseText

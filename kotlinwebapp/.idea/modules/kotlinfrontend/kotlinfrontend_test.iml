@@ -3,10 +3,10 @@
   <component name="FacetManager">
     <facet type="kotlin-language" name="Kotlin">
       <configuration version="3" platform="JavaScript " useProjectSettings="false">
-        <productionOutputPath>$MODULE_DIR$/../../../kotlinfrontend/build/js/kotlinfrontend.js</productionOutputPath>
+        <productionOutputPath>$MODULE_DIR$/../../../kotlinfrontend/build/js/output.js</productionOutputPath>
         <compilerSettings />
         <compilerArguments>
-          <option name="outputFile" value="$MODULE_DIR$/../../../kotlinfrontend/build/js-tests/kotlinfrontend-tests.js" />
+          <option name="outputFile" value="$MODULE_DIR$/../../../kotlinfrontend/tests/kotlinfrontend-tests.js" />
           <option name="noStdlib" value="true" />
           <option name="sourceMap" value="true" />
           <option name="metaInfo" value="true" />

@@ -13,8 +13,8 @@ dependencies {
 
 compileKotlin2Js {
     kotlinOptions.metaInfo = true
-    kotlinOptions.outputFile = "$project.buildDir.path/js/${project.name}.js"
-    kotlinOptions.sourceMap = true
+    kotlinOptions.outputFile = "$project.buildDir.path/js/output.js"
+    kotlinOptions.sourceMap = false
     kotlinOptions.moduleKind = 'commonjs'
     kotlinOptions.main = "call"
     kotlinOptions.verbose = true
@@ -22,7 +22,7 @@ compileKotlin2Js {
 
 compileTestKotlin2Js {
     kotlinOptions.metaInfo = true
-    kotlinOptions.outputFile = "$project.buildDir.path/js-tests/${project.name}-tests.js"
+    kotlinOptions.outputFile = "${projectDir}/tests/${project.name}-tests.js"
     kotlinOptions.sourceMap = true
     kotlinOptions.moduleKind = 'commonjs'
 //    kotlinOptions.moduleName = project.name + "-test"
@@ -40,6 +40,7 @@ kotlinFrontend {
         replaceVersion("kotlinx-html-shared", "1.1.0")
         replaceVersion("kotlin-js-library", "1.1.0")
 
+        dependency("firebase")
         dependency("style-loader")
         dependency("react")
         dependency("react-dom")
@@ -56,10 +57,12 @@ kotlinFrontend {
 
     webpackBundle {
         bundleName = "main"
-        publicPath = "/frontend/"
-        contentPath = file('src/main/web')
-        port = 8080
-        proxyUrl = "http://localhost:9090"
+        sourceMapEnabled = true // enable/disable source maps
+        publicPath = "/frontend/" // web prefix
+        contentPath = file('src/main/web') // a file that represents a directory to be served by dev server)
+        host = "localhost" // dev server host
+        port = 9090   // dev server port
+        proxyUrl = "http://localhost:8080" // URL to be proxied, useful to proxy backend webserver
         mode = "production"
     }
 }
