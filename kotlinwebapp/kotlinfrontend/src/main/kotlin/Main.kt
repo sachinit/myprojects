@@ -14,11 +14,11 @@ import kotlin.js.Json
 
 fun main(args: Array<String>) {
     window.onload = {
-        fetch("1")
+        fetch("A")
         //Example of how to add stylesheets dynamically
         //add stylesheet if we have any
         val head = document.getElementsByTagName("head")
-        head[0]?.appendChild(createStylesheetLink("style.css"))
+        head[0]?.appendChild(createStylesheetLink("test.css"))
         //bind elements
         val input = document.getElementById("count_id") as HTMLInputElement
         val button = document.getElementById("button_id")

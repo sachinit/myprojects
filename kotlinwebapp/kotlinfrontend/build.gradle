@@ -13,11 +13,36 @@ dependencies {
 
 compileKotlin2Js {
     kotlinOptions.metaInfo = true
-    kotlinOptions.outputFile = "$project.buildDir.path/js/output.js"
-    kotlinOptions.sourceMap = false
+    kotlinOptions.outputFile = "${projectDir}/web/js/output.js"
+    kotlinOptions.sourceMap = true
     kotlinOptions.moduleKind = 'commonjs'
     kotlinOptions.main = "call"
     kotlinOptions.verbose = true
+    doLast {
+        //Copy kotlin library files to the web directory
+        // Copy kotlin.js and kotlin-meta.js from jar into web directory
+        configurations.compile.each { File file ->
+            copy {
+                includeEmptyDirs = false
+
+                from zipTree(file.absolutePath)
+                into "${projectDir}/web/js/lib"
+                include { fileTreeElement ->
+                    def path = fileTreeElement.path
+                    path.endsWith(".js") && (path.startsWith("META-INF/resources/") || !path.startsWith("META-INF/"))
+                }
+            }
+        }
+        //Copy static resources to the web directory
+        copy {
+            includeEmptyDirs = false
+            from "${project.buildDir.path}/resources"
+            into "${projectDir}/web"
+        }
+    }
+    doFirst {
+        delete "${projectDir}/web"
+    }
 }
 
 compileTestKotlin2Js {
@@ -59,12 +84,15 @@ kotlinFrontend {
         bundleName = "main"
         sourceMapEnabled = true // enable/disable source maps
         publicPath = "/frontend/" // web prefix
-        contentPath = file('src/main/web') // a file that represents a directory to be served by dev server)
+        contentPath = file('web') // a file that represents a directory to be served by dev server)
         host = "localhost" // dev server host
         port = 9090   // dev server port
         proxyUrl = "http://localhost:8080" // URL to be proxied, useful to proxy backend webserver
         mode = "production"
     }
+
+    define "PRODUCTION", false
+    define "X", false
 }
 
 sourceSets {
@@ -72,7 +100,7 @@ sourceSets {
         kotlin.srcDirs = [ 'src/main/kotlin' ]
         java.srcDirs = [ 'src/main/java' ]
         resources.srcDirs += "src/main/resources"
-        output.resourcesDir = "build/js/resources"
+        output.resourcesDir = "build/resources"
     }
     test {
         kotlin.srcDirs = [ 'src/test/kotlin' ]
