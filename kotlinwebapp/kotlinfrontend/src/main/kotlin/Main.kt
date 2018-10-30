@@ -12,6 +12,8 @@ import kotlin.browser.document
 import kotlin.browser.window
 import kotlin.js.Json
 
+external fun require(module: String): dynamic
+
 fun main(args: Array<String>) {
     window.onload = {
         fetch("A")

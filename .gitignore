@@ -1,5 +1,10 @@
 .DS_Store
 */.DS_Store
-*/.idea/libraries/*.*
 */target
 SubmissionAPIEventProcessor/node_modules
+**/.gradle/
+**/.idea/
+**/build/
+**/bin/
+**/web/
+**/.settings/

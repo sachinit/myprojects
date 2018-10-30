@@ -58,12 +58,16 @@ kotlinFrontend {
 // uncomment this to specify exact nodejs version (bundle will be downloaded)
     downloadNodeJsVersion = "latest"
 
-    sourceMaps = false
+    sourceMaps = true
 
     npm {
         replaceVersion("kotlinx-html-js", "1.1.0")
         replaceVersion("kotlinx-html-shared", "1.1.0")
         replaceVersion("kotlin-js-library", "1.1.0")
+
+        dependency("kotlin")
+        dependency("@jetbrains/kotlin-extensions")
+        dependency("@jetbrains/kotlin-react")
 
         dependency("firebase")
         dependency("style-loader")
@@ -74,7 +78,6 @@ kotlinFrontend {
         dependency("react-markdown")
 
         devDependency("css-loader")
-        devDependency("style-loader")
         devDependency("babel-loader")
         devDependency("babel-core")
         devDependency("karma")
@@ -109,8 +112,3 @@ sourceSets {
     }
 }
 
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
-}
