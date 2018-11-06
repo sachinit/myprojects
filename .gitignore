@@ -8,3 +8,5 @@ SubmissionAPIEventProcessor/node_modules
 **/bin/
 **/web/
 **/.settings/
+**/dist/
+**/node_modules/

@@ -29,7 +29,7 @@ compileKotlin2Js {
                 into "${projectDir}/web/js/lib"
                 include { fileTreeElement ->
                     def path = fileTreeElement.path
-                    path.endsWith(".js") && (path.startsWith("META-INF/resources/") || !path.startsWith("META-INF/"))
+                    path.endsWith(".js") && (path.startsWith("resources/") || !path.startsWith("META-INF/"))
                 }
             }
         }
@@ -92,6 +92,7 @@ kotlinFrontend {
         port = 9090   // dev server port
         proxyUrl = "http://localhost:8080" // URL to be proxied, useful to proxy backend webserver
         mode = "production"
+        stats = "verbose"
     }
 
     define "PRODUCTION", false

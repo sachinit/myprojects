@@ -32,18 +32,20 @@ fun main(args: Array<String>) {
 }
 
 fun fetch(key: String): Unit {
-    val url = "http://localhost:8080/v1/item/$key"
+    val url = "http://localhost:9090/v1/item/$key"
     val req = XMLHttpRequest()
     req.onloadend = fun(event: Event){
         val text = req.responseText
         println(text)
-        val objArray  = JSON.parse<Array<Json>>(text)
+        val objArray  = JSON.parse<Json>(text)
         val textarea = document.getElementById("textarea_id") as HTMLTextAreaElement
         textarea.value = ""
-        objArray.forEach {
-            val message = it["message"]
+
+
+            println(objArray)
+            val message = objArray["value"]
             textarea.value += "$message\n"
-        }
+
     }
     req.open("GET", url, true)
     req.send()
