@@ -2,17 +2,24 @@
 
 package com.personal.demo
 
+import react.*
+import logo
+import react.dom.*
+
 import org.w3c.dom.Element
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLTextAreaElement
 import org.w3c.dom.events.Event
 import org.w3c.dom.get
 import org.w3c.xhr.XMLHttpRequest
+import ticker
 import kotlin.browser.document
 import kotlin.browser.window
 import kotlin.js.Json
 
-external fun require(module: String): dynamic
+import kotlinext.js.*
+import react.dom.*
+import kotlin.browser.*
 
 fun main(args: Array<String>) {
     window.onload = {
@@ -29,7 +36,33 @@ fun main(args: Array<String>) {
             fetch(input.value)
         })
     }
+
+    requireAll(require.context("/", true, js("/\\.css$/")))
+
+    render(document.getElementById("root")) {
+        app()
+    }
 }
+class App : RComponent<RProps, RState>() {
+    override fun RBuilder.render() {
+        div("App-header") {
+            logo()
+            h2("header-text") {
+                +"Welcome to React with Kotlin"
+            }
+        }
+        p("App-intro") {
+            +"To get started, edit "
+            code { +"app/App.kt" }
+            +" and save to reload."
+        }
+        p("App-ticker") {
+            ticker()
+        }
+    }
+}
+
+fun RBuilder.app() = child(App::class) {}
 
 fun fetch(key: String): Unit {
     val url = "http://localhost:9090/v1/item/$key"
@@ -40,11 +73,8 @@ fun fetch(key: String): Unit {
         val objArray  = JSON.parse<Json>(text)
         val textarea = document.getElementById("textarea_id") as HTMLTextAreaElement
         textarea.value = ""
-
-
-            println(objArray)
-            val message = objArray["value"]
-            textarea.value += "$message\n"
+        val message = objArray["value"]
+        textarea.value += "$message\n"
 
     }
     req.open("GET", url, true)

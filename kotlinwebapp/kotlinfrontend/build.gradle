@@ -2,37 +2,24 @@ group 'com.personal.demo'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'kotlin2js'
-apply plugin: 'kotlin-dce-js'
 apply plugin: 'org.jetbrains.kotlin.frontend'
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
-    compile("org.jetbrains.kotlinx:kotlinx-html-js:$html_version")
+    compile "org.jetbrains.kotlinx:kotlinx-html-js:$html_version"
+    compile "org.jetbrains:kotlin-react:$kotlin_react_version"
+    compile "org.jetbrains:kotlin-react-dom:$react_dom_version"
 }
 
 compileKotlin2Js {
     kotlinOptions.metaInfo = true
-    kotlinOptions.outputFile = "${projectDir}/web/js/output.js"
-    kotlinOptions.sourceMap = true
+    kotlinOptions.outputFile = "${projectDir}/web/output.js"
+    kotlinOptions.sourceMap = false
     kotlinOptions.moduleKind = 'commonjs'
     kotlinOptions.main = "call"
     kotlinOptions.verbose = true
     doLast {
-        //Copy kotlin library files to the web directory
-        // Copy kotlin.js and kotlin-meta.js from jar into web directory
-        configurations.compile.each { File file ->
-            copy {
-                includeEmptyDirs = false
-
-                from zipTree(file.absolutePath)
-                into "${projectDir}/web/js/lib"
-                include { fileTreeElement ->
-                    def path = fileTreeElement.path
-                    path.endsWith(".js") && (path.startsWith("resources/") || !path.startsWith("META-INF/"))
-                }
-            }
-        }
         //Copy static resources to the web directory
         copy {
             includeEmptyDirs = false
@@ -48,9 +35,8 @@ compileKotlin2Js {
 compileTestKotlin2Js {
     kotlinOptions.metaInfo = true
     kotlinOptions.outputFile = "${projectDir}/tests/${project.name}-tests.js"
-    kotlinOptions.sourceMap = true
+    kotlinOptions.sourceMap = false
     kotlinOptions.moduleKind = 'commonjs'
-//    kotlinOptions.moduleName = project.name + "-test"
     kotlinOptions.main = "call"
 }
 
@@ -58,28 +44,27 @@ kotlinFrontend {
 // uncomment this to specify exact nodejs version (bundle will be downloaded)
     downloadNodeJsVersion = "latest"
 
-    sourceMaps = true
+    sourceMaps = false
 
     npm {
-        replaceVersion("kotlinx-html-js", "1.1.0")
-        replaceVersion("kotlinx-html-shared", "1.1.0")
-        replaceVersion("kotlin-js-library", "1.1.0")
-
         dependency("kotlin")
         dependency("@jetbrains/kotlin-extensions")
         dependency("@jetbrains/kotlin-react")
+        dependency("@jetbrains/kotlin-react-dom")
+        dependency("@jetbrains/kotlin-webpack-plugin")
 
         dependency("firebase")
-        dependency("style-loader")
         dependency("react")
         dependency("react-dom")
         dependency("react-router")
         dependency("jquery")
         dependency("react-markdown")
-
-        devDependency("css-loader")
-        devDependency("babel-loader")
-        devDependency("babel-core")
+        dependency("style-loader")
+        dependency("svg-inline-loader")
+        dependency("source-map-loader")
+        dependency("css-loader")
+        dependency("babel-loader")
+        dependency("babel-core")
         devDependency("karma")
     }
 
@@ -96,7 +81,7 @@ kotlinFrontend {
     }
 
     define "PRODUCTION", false
-    define "X", false
+    define "X", true
 }
 
 sourceSets {
