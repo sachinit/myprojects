@@ -1,0 +1,5 @@
+
+rootProject.name = 'webappkotlin'
+
+include "kotlinbackend", "kotlinfrontend"
+

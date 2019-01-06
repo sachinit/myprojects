@@ -1,0 +1,43 @@
+group 'com.personal.demo'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'kotlin'
+apply plugin: 'application'
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    compile "io.ktor:ktor-locations:$ktor_version"
+    compile "io.ktor:ktor-html-builder:$ktor_version"
+    compile "org.ehcache:ehcache:3.0.0.m4"
+
+    compile "org.jetbrains.squash:squash-h2:$squash_version"
+
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testCompile "io.ktor:ktor-server-tests:$ktor_version"
+
+    compile "io.ktor:ktor-server-netty:$ktor_version"
+    compile "io.ktor:ktor-gson:$ktor_version"
+    compile "ch.qos.logback:logback-classic:$logback_version"
+}
+
+sourceSets {
+    main.kotlin.srcDirs = [ 'src/main/kotlin' ]
+    main.resources.srcDirs = [ 'src/main/resources' ]
+    main.java.srcDirs = [ 'src/main/java' ]
+    test.kotlin.srcDirs = [ 'src/test/kotlin' ]
+    test.java.srcDirs = [ 'src/test/java' ]
+    test.resources.srcDirs = ['src/test/resources']
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+mainClassName = "io.ktor.server.netty.DevelopmentEngine"
+
+

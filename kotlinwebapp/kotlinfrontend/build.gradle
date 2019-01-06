@@ -1,0 +1,100 @@
+group 'com.personal.demo'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'kotlin2js'
+apply plugin: 'org.jetbrains.kotlin.frontend'
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+    compile "org.jetbrains.kotlinx:kotlinx-html-js:$html_version"
+    compile "org.jetbrains:kotlin-react:$kotlin_react_version"
+    compile "org.jetbrains:kotlin-react-dom:$react_dom_version"
+}
+
+compileKotlin2Js {
+    kotlinOptions.metaInfo = true
+    kotlinOptions.outputFile = "${projectDir}/web/output.js"
+    kotlinOptions.sourceMap = false
+    kotlinOptions.moduleKind = 'commonjs'
+    kotlinOptions.main = "call"
+    kotlinOptions.verbose = true
+    doLast {
+        //Copy static resources to the web directory
+        copy {
+            includeEmptyDirs = false
+            from "${project.buildDir.path}/resources"
+            into "${projectDir}/web"
+        }
+    }
+    doFirst {
+        delete "${projectDir}/web"
+    }
+}
+
+compileTestKotlin2Js {
+    kotlinOptions.metaInfo = true
+    kotlinOptions.outputFile = "${projectDir}/tests/${project.name}-tests.js"
+    kotlinOptions.sourceMap = false
+    kotlinOptions.moduleKind = 'commonjs'
+    kotlinOptions.main = "call"
+}
+
+kotlinFrontend {
+// uncomment this to specify exact nodejs version (bundle will be downloaded)
+    downloadNodeJsVersion = "latest"
+
+    sourceMaps = false
+
+    npm {
+        dependency("kotlin")
+        dependency("@jetbrains/kotlin-extensions")
+        dependency("@jetbrains/kotlin-react")
+        dependency("@jetbrains/kotlin-react-dom")
+        dependency("@jetbrains/kotlin-webpack-plugin")
+
+        dependency("firebase")
+        dependency("react")
+        dependency("react-dom")
+        dependency("react-router")
+        dependency("jquery")
+        dependency("react-markdown")
+        dependency("style-loader")
+        dependency("svg-inline-loader")
+        dependency("source-map-loader")
+        dependency("css-loader")
+        dependency("babel-loader")
+        dependency("babel-core")
+        devDependency("karma")
+    }
+
+    webpackBundle {
+        bundleName = "main"
+        sourceMapEnabled = true // enable/disable source maps
+        publicPath = "/frontend/" // web prefix
+        contentPath = file('web') // a file that represents a directory to be served by dev server)
+        host = "localhost" // dev server host
+        port = 9090   // dev server port
+        proxyUrl = "http://localhost:8080" // URL to be proxied, useful to proxy backend webserver
+        mode = "production"
+        stats = "verbose"
+    }
+
+    define "PRODUCTION", false
+    define "X", true
+}
+
+sourceSets {
+    main {
+        kotlin.srcDirs = [ 'src/main/kotlin' ]
+        java.srcDirs = [ 'src/main/java' ]
+        resources.srcDirs += "src/main/resources"
+        output.resourcesDir = "build/resources"
+    }
+    test {
+        kotlin.srcDirs = [ 'src/test/kotlin' ]
+        java.srcDirs = [ 'src/test/java' ]
+        resources.srcDirs += "src/test/resources"
+    }
+}
+

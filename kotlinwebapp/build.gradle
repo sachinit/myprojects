@@ -1,0 +1,50 @@
+group 'com.personal.demo'
+version '1.0-SNAPSHOT'
+
+subprojects { p ->
+    p.buildscript {
+        ext.kotlin_version = '1.3.11'
+        ext.ktor_version = '1.1.1'
+        ext.logback_version = '1.2.3'
+        ext.slf4j_version = '1.7.25'
+        ext.kotlin_react_version = '16.6.0-pre.66-kotlin-1.3.11'
+        ext.react_dom_version = '16.6.0-pre.66-kotlin-1.3.11'
+
+        repositories {
+            mavenLocal()
+            jcenter()
+            maven { url 'http://dl.bintray.com/kotlin/kotlin-eap' }
+            maven { url 'https://kotlin.bintray.com/kotlinx' }
+            maven { url 'https://dl.bintray.com/kotlin/ktor' }
+            maven { url 'https://dl.bintray.com/kotlin/squash' }
+            maven { url 'https://kotlin.bintray.com/ktor' }
+            maven { url "https://dl.bintray.com/kotlin/kotlin-js-wrappers" }
+        }
+
+        dependencies {
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+            classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.44"
+        }
+    }
+}
+
+subprojects {
+    ext.kotlin_version = '1.3.11'
+    ext.ktor_version = '1.1.1'
+    ext.html_version = "0.6.12"
+    ext.squash_version = "0.2.4"
+    ext.logback_version = '1.2.3'
+    ext.slf4j_version = '1.7.25'
+    ext.kotlin_react_version = '16.6.0-pre.66-kotlin-1.3.11'
+    ext.react_dom_version = '16.6.0-pre.66-kotlin-1.3.11'
+
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven { url 'https://kotlin.bintray.com/kotlinx' }
+        maven { url 'https://dl.bintray.com/kotlin/ktor' }
+        maven { url 'https://dl.bintray.com/kotlin/squash' }
+        maven { url 'https://kotlin.bintray.com/ktor' }
+        maven { url "https://dl.bintray.com/kotlin/kotlin-js-wrappers" }
+    }
+}
