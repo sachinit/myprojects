@@ -37,5 +37,20 @@ fun Application.main() {
             else
                 call.respond(item)
         }
+        get("/sort/{type}/{size}") {
+            val sortType = call.parameters["type"]
+            val listSize = call.parameters["size"]!!.toInt()
+
+            val randomList: MutableList<Int> = mutableListOf()
+            for(i in 1 until listSize) randomList.add((1 until listSize).random())
+            when(sortType) {
+                "merge" -> {
+                    call.respond(mergeSort(randomList))
+                }
+                else -> {
+                    call.respond(HttpStatusCode.NotFound)
+                }
+            }
+        }
     }
 }

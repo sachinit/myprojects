@@ -17,10 +17,6 @@ import kotlin.browser.document
 import kotlin.browser.window
 import kotlin.js.Json
 
-import kotlinext.js.*
-import react.dom.*
-import kotlin.browser.*
-
 fun main(args: Array<String>) {
     window.onload = {
         fetch("A")
@@ -36,8 +32,6 @@ fun main(args: Array<String>) {
             fetch(input.value)
         })
     }
-
-    requireAll(require.context("/", true, js("/\\.css$/")))
 
     render(document.getElementById("root")) {
         app()
